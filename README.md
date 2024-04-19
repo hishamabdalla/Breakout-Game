@@ -1,5 +1,5 @@
 # Breakout Game by C#
-![Breakout](https://github.com/hishamabdalla/Breakout-Game/assets/129236724/4c59c17e-c583-47c2-92d8-68da3442f21c)
+
 
 
 
