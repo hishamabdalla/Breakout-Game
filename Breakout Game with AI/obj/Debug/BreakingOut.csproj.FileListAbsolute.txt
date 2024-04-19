@@ -1,0 +1,20 @@
+D:\3th semester 2\AI\BreakingOut\bin\Debug\BreakingOut.exe.config
+D:\3th semester 2\AI\BreakingOut\bin\Debug\BreakingOut.exe
+D:\3th semester 2\AI\BreakingOut\bin\Debug\BreakingOut.pdb
+D:\3th semester 2\AI\BreakingOut\obj\Debug\BreakingOut.csproj.AssemblyReference.cache
+D:\3th semester 2\AI\BreakingOut\obj\Debug\BreakingOut.Form1.resources
+D:\3th semester 2\AI\BreakingOut\obj\Debug\BreakingOut.Properties.Resources.resources
+D:\3th semester 2\AI\BreakingOut\obj\Debug\BreakingOut.csproj.GenerateResource.cache
+D:\3th semester 2\AI\BreakingOut\obj\Debug\BreakingOut.csproj.CoreCompileInputs.cache
+D:\3th semester 2\AI\BreakingOut\obj\Debug\BreakingOut.exe
+D:\3th semester 2\AI\BreakingOut\obj\Debug\BreakingOut.pdb
+D:\3th semester 2\AI\Breakout Game with AI\bin\Debug\BreakingOut.exe.config
+D:\3th semester 2\AI\Breakout Game with AI\bin\Debug\BreakingOut.exe
+D:\3th semester 2\AI\Breakout Game with AI\bin\Debug\BreakingOut.pdb
+D:\3th semester 2\AI\Breakout Game with AI\obj\Debug\BreakingOut.csproj.AssemblyReference.cache
+D:\3th semester 2\AI\Breakout Game with AI\obj\Debug\BreakingOut.Form1.resources
+D:\3th semester 2\AI\Breakout Game with AI\obj\Debug\BreakingOut.Properties.Resources.resources
+D:\3th semester 2\AI\Breakout Game with AI\obj\Debug\BreakingOut.csproj.GenerateResource.cache
+D:\3th semester 2\AI\Breakout Game with AI\obj\Debug\BreakingOut.csproj.CoreCompileInputs.cache
+D:\3th semester 2\AI\Breakout Game with AI\obj\Debug\BreakingOut.exe
+D:\3th semester 2\AI\Breakout Game with AI\obj\Debug\BreakingOut.pdb
