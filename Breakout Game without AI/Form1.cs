@@ -34,8 +34,8 @@ namespace BreakingOut
         {
             isGameOver = false; // Reset game over flag
             score = 0; // Reset score
-            ballx = 5; // Reset ball horizontal velocity
-            bally = 5; // Reset ball vertical velocity
+            ballx = 50; // Reset ball horizontal velocity
+            bally = 50; // Reset ball vertical velocity
             playerSpeed = 22; // Reset player paddle speed
             UpdateScoreText(); // Update score display
             ResetBallAndPlayerPositions(); // Reset ball and player paddle positions

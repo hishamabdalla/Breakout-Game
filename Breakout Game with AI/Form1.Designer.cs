@@ -73,7 +73,7 @@
             this.ball.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ball.BackgroundImage")));
             this.ball.Image = global::BreakingOut.Properties.Resources.pngwing_com;
             this.ball.InitialImage = null;
-            this.ball.Location = new System.Drawing.Point(412, 350);
+            this.ball.Location = new System.Drawing.Point(404, 390);
             this.ball.Name = "ball";
             this.ball.Size = new System.Drawing.Size(20, 21);
             this.ball.TabIndex = 1;

@@ -16,36 +16,38 @@ namespace BreakingOut
         PictureBox[] blockArray; // Array to store blocks
         bool goLeft;
         bool goRight;
-        bool isGameOver; // Indicates whether the game is over
-        int score; // Current score
-        int ballx; // Ball's horizontal velocity
-        int bally; // Ball's vertical velocity
-        int playerSpeed; // Speed of the player paddle
-        Random rnd = new Random(); // Random number generator
+        bool isGameOver; 
+        int score; 
+        int ballx; 
+        int bally;
+        int playerSpeed; 
+        Random rnd = new Random();
 
+        // Initializes the form and sets up the game by placing blocks and calling the setupGame method
         public Form1()
         {
             InitializeComponent();
-            PlaceBlocks(); // Initialize and place blocks
-            setupGame(); // Setup game parameters
+            PlaceBlocks();
+            setupGame(); 
         }
-
+        // Sets up the initial game parameters and starts the game
         private void setupGame()
         {
-            isGameOver = false; // Reset game over flag
-            score = 0; // Reset score
-            ballx = 5; // Reset ball horizontal velocity
-            bally = 5; // Reset ball vertical velocity
-            playerSpeed = 12; // Reset player paddle speed
-            UpdateScoreText(); // Update score display
-            ResetBallAndPlayerPositions(); // Reset ball and player paddle positions
-            gameTimer.Start(); // Start game timer
-            ChangeBlockColors(); // Change colors of blocks
+            isGameOver = false; 
+            score = 0; 
+            ballx = 5; 
+            bally = 5; 
+            playerSpeed = 12; 
+            UpdateScoreText();
+            ResetBallAndPlayerPositions(); 
+            gameTimer.Start(); 
+            ChangeBlockColors(); 
         }
 
+        // Changes the colors of blocks randomly
         private void ChangeBlockColors()
         {
-            // Change colors of blocks randomly
+            
             foreach (Control x in this.Controls)
             {
                 if (x is PictureBox && (string)x.Tag == "blocks")
@@ -56,31 +58,33 @@ namespace BreakingOut
             }
         }
 
+        // Updates the score display on the form
         private void UpdateScoreText()
         {
-            // Update score display
+         
             txtScore.Text = "Score: " + score;
         }
 
+        // Reset ball and player paddle positions
         private void ResetBallAndPlayerPositions()
         {
-            // Reset ball and player paddle positions
+           
             ball.Left = 403;
             ball.Top = 380;
             player.Left = 362;
             player.Top = 429;
         }
 
+        // Handles the game over event by stopping the game timer and displaying a message box
         private void GameOver(bool isWin)
         {
-            // Handle game over event
+            
             isGameOver = true;
             gameTimer.Stop();
 
-            // Determine message based on win or lose condition
+            
             string message = isWin ? "You Win !!" : "Game Over !!";
 
-            // Display message box with appropriate title and buttons
             DialogResult result = MessageBox.Show(message + " Do you want to play again?", isWin ? "You Win" : "Game Over", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
@@ -94,6 +98,7 @@ namespace BreakingOut
             }
         }
 
+        // Places blocks on the game screen
         private void PlaceBlocks()
         {
 
@@ -131,26 +136,25 @@ namespace BreakingOut
             }
         }
 
+        // Main game loop that handles player movement, ball movement, collisions, and game over conditions
         private void mainGameTimer(object sender, EventArgs e)
         {
-            // Main game loop
+         
             txtScore.Text = "Score: " + score;
 
-            // Move the player paddle based on the input flags (goLeft and goRight)
             if (goLeft == true && player.Left > 0)
             {
-                player.Left -= playerSpeed;// Move the player paddle to the left
+                player.Left -= playerSpeed;
             }
 
             if (goRight == true && player.Left < 733)
             {
-                player.Left += playerSpeed; // Move the player paddle to the right
+                player.Left += playerSpeed; 
             }
 
-            // Move ball
             ball.Left += ballx;
             ball.Top += bally;
-            CheckBallCollisions(); // Check ball collisions
+            CheckBallCollisions(); 
 
             // Check for collision with blocks
             foreach (Control x in this.Controls)
@@ -169,12 +173,12 @@ namespace BreakingOut
             // Check game over conditions
             if (score == 49)
             {
-                GameOver(true); // Player wins
+                GameOver(true); 
             }
             // Check if the player loses the game
             else if (ball.Top > 500)
             {
-                GameOver(false); // Player loses
+                GameOver(false); 
             }
             // Call AI control method
             if (!isGameOver)
@@ -232,29 +236,94 @@ namespace BreakingOut
                 setupGame();
             }
         }
-
+        #region uninformed search
         private void AIControl()
         {
-            // AI control logic to move the player paddle based on the position of the ball
-            int playerCenter = player.Left + (player.Width / 2);
-            int ballCenter = ball.Left + (ball.Width / 2);
+            Queue<int> queue = new Queue<int>();
+            HashSet<int> visited = new HashSet<int>();
+            Dictionary<int, int> parent = new Dictionary<int, int>();
 
-            if (ballCenter < playerCenter)
+            int paddlePosition = player.Left + (player.Width / 2);
+            int ballPosition = ball.Left + (ball.Width / 2);
+
+            queue.Enqueue(paddlePosition);
+            visited.Add(paddlePosition);
+
+            while (queue.Count > 0)
             {
-                goLeft = true; // Move paddle left
+                int current = queue.Dequeue();
+
+                // If the current position matches the ball position, backtrack to find the optimal path
+                if (current == ballPosition)
+                {
+                    while (current != paddlePosition)
+                    {
+                        ballPosition = parent[current];
+                        current = ballPosition;
+                    }
+                    break;
+                }
+
+                // Explore neighboring positions
+                if (current - playerSpeed >= 0 && !visited.Contains(current - playerSpeed))
+                {
+                    queue.Enqueue(current - playerSpeed);
+                    visited.Add(current - playerSpeed);
+                    parent[current - playerSpeed] = current;
+                }
+                if (current + playerSpeed <= this.Width && !visited.Contains(current + playerSpeed))
+                {
+                    queue.Enqueue(current + playerSpeed);
+                    visited.Add(current + playerSpeed);
+                    parent[current + playerSpeed] = current;
+                }
+            }
+
+            // Move the paddle towards the ball
+            if (ballPosition < paddlePosition)
+            {
+                goLeft = true;
                 goRight = false;
             }
-            else if (ballCenter > playerCenter)
+            else if (ballPosition > paddlePosition)
             {
                 goLeft = false;
-                goRight = true; // Move paddle right
+                goRight = true;
             }
             else
             {
-                goLeft = false; // Stop moving
+                goLeft = false;
                 goRight = false;
             }
         }
+
+        #endregion
+
+        #region First one
+        //private void AIControl()
+        //{
+        //    // AI control logic to move the player paddle based on the position of the ball
+        //    int playerCenter = player.Left + (player.Width / 2);
+        //    int ballCenter = ball.Left + (ball.Width / 2);
+
+        //    if (ballCenter < playerCenter)
+        //    {
+        //        goLeft = true; // Move paddle left
+        //        goRight = false;
+        //    }
+        //    else if (ballCenter > playerCenter)
+        //    {
+        //        goLeft = false;
+        //        goRight = true; // Move paddle right
+        //    }
+        //    else
+        //    {
+        //        goLeft = false; // Stop moving
+        //        goRight = false;
+        //    }
+        //}
+        #endregion
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
